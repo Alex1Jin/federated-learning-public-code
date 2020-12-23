@@ -1,0 +1,261 @@
+(demo2) user@ubuntu18:~/federated-learning-public-code-master/codes/FedDF-code$ python run.py \
+>     --arch resnet8 --complex_arch master=resnet8,worker=resnet8 --experiment demo \
+    --track_time True --display_tracked_time True --python_path /home/user/anaconda3/envs/demo2/bin/python --hostfile hostfile \
+>     --data cifar10 --pin_memory True --batch_size 64 --num_workers 2 \
+    --manual_seed 7 --pn_normalize True --same_seed_process False>     --partition_data non_iid_dirichlet --non_iid_alpha 1 --train_data_ratio 1 --val_data_ratio 0.1 \
+>     --n_clients 20 --participation_ratio 0.1 --n_comm_rounds 100 --local_n_epochs 40 --world_conf 0,0,1,1,100 --on_cuda True \
+>     --fl_aggregate scheme=federated_average \
+>     --optimizer sgd --lr 0.1 --local_prox_term 0 --lr_warmup False --lr_warmup_epochs 5 --lr_warmup_epochs_upper_bound 150 \
+>     --lr_scheduler MultiStepLR --lr_decay 0.1 \
+>     --weight_decay 0 --use_nesterov False --momentum_factor 0 \
+>     --track_time True --display_tracked_time True --python_path /home/user/anaconda3/envs/demo2/bin/python --hostfile hostfile \
+>     --manual_seed 7 --pn_normalize True --same_seed_process False
+
+Run the following cmd:
+mpirun -n 3 --hostfile hostfile --mca orte_base_help_aggregate 0 --mca btl_tcp_if_exclude docker0,lo --prefix $HOME/.openmpi  /home/user/anaconda3/envs/demo2/bin/python main.py  --remote_exec False  --data cifar10  --val_data_ratio 0.1  --train_data_ratio 1.0  --data_dir ./data/  --use_fake_centering False  --use_lmdb_data False  --partition_data non_iid_dirichlet  --pin_memory True  --num_workers 2  --pn_normalize True  --arch resnet8  --complex_arch master=resnet8,worker=resnet8  --w_conv_bias False  --w_fc_bias True  --freeze_bn False  --freeze_bn_affine False  --resnet_scaling 1  --n_comm_rounds 100  --early_stopping_rounds 0  --local_n_epochs 40.0  --local_prox_term 0.0  --reshuffle_per_epoch False  --batch_size 64  --n_clients 20  --participation_ratio 0.1  --n_participated 2  --fl_aggregate scheme=federated_average  --non_iid_alpha 1.0  --train_fast False  --use_mixup False  --mixup_alpha 1.0  --mixup_noniid False  --lr 0.1  --lr_scheduler MultiStepLR  --lr_decay 0.1  --lr_patience 10  --lr_scaleup False  --lr_warmup False  --lr_warmup_epochs 5  --lr_warmup_epochs_upper_bound 150  --adam_beta_1 0.9  --adam_beta_2 0.999  --adam_eps 1e-08  --optimizer sgd  --use_larc False  --larc_trust_coefficient 0.02  --larc_clip True  --label_smoothing 0.1  --weighted_beta 0  --weighted_gamma 0  --momentum_factor 0.0  --use_nesterov False  --weight_decay 0.0  --drop_rate 0.0  --self_distillation 0  --self_distillation_temperature 1  --densenet_growth_rate 12  --densenet_bc_mode False  --densenet_compression 0.5  --wideresnet_widen_factor 4  --rnn_n_hidden 200  --rnn_n_layers 2  --rnn_bptt_len 35  --rnn_clip 0.25  --rnn_use_pretrained_emb True  --rnn_tie_weights True  --rnn_weight_norm False  --transformer_n_layers 6  --transformer_n_head 8  --transformer_dim_model 512  --transformer_dim_inner_hidden 2048  --transformer_n_warmup_steps 4000  --same_seed_process False  --manual_seed 7  --evaluate False  --summary_freq 256  --timestamp 1608700991  --track_time True  --track_detailed_time False  --display_tracked_time True  --checkpoint ./data/checkpoint  --save_all_models False  --python_path /home/user/anaconda3/envs/demo2/bin/python  --world_conf 0,0,1,1,100  --on_cuda True  --hostfile hostfile  --mpi_path $HOME/.openmpi  --experiment demo  --job_id /tmp/jobrun_logs  --script_path exp/  --num_jobs_per_node 1
+
+
+parameters:
+        work_dir        None
+        remote_exec     False
+        data    cifar10
+        val_data_ratio  0.1
+        train_data_ratio        1.0
+        data_dir        ./data/
+        img_resolution  None
+        use_fake_centering      False
+        use_lmdb_data   False
+        partition_data  non_iid_dirichlet
+        pin_memory      True
+        num_workers     2
+        pn_normalize    True
+        arch    resnet8
+        group_norm_num_groups   None
+        complex_arch    master=resnet8,worker=resnet8
+        w_conv_bias     False
+        w_fc_bias       True
+        freeze_bn       False
+        freeze_bn_affine        False
+        resnet_scaling  1.0
+        vgg_scaling     None
+        evonorm_version None
+        n_comm_rounds   100
+        target_perf     None
+        early_stopping_rounds   0
+        local_n_epochs  40.0
+        random_reinit_local_model       None
+        local_prox_term 0.0
+        min_local_epochs        None
+        reshuffle_per_epoch     False
+        batch_size      64
+        base_batch_size None
+        n_clients       20
+        participation_ratio     0.1
+        n_participated  2
+        fl_aggregate    {'scheme': 'federated_average'}
+        non_iid_alpha   1.0
+        train_fast      False
+        use_mixup       False
+        mixup_alpha     1.0
+        mixup_noniid    False
+        lr      0.1
+        lr_scheduler    MultiStepLR
+        lr_milestones   None
+        lr_milestone_ratios     None
+        lr_decay        0.1
+        lr_patience     10
+        lr_scaleup      False
+        lr_scaleup_init_lr      None
+        lr_scaleup_factor       None
+        lr_warmup       False
+        lr_warmup_epochs        5
+        lr_warmup_epochs_upper_bound    150
+        adam_beta_1     0.9
+        adam_beta_2     0.999
+        adam_eps        1e-08
+        optimizer       sgd
+        local_model_compression None
+        use_larc        False
+        larc_trust_coefficient  0.02
+        larc_clip       True
+        label_smoothing 0.1
+        weighted_loss   None
+        weighted_beta   0.0
+        weighted_gamma  0.0
+        momentum_factor 0.0
+        use_nesterov    False
+        weight_decay    0.0
+        drop_rate       0.0
+        self_distillation       0.0
+        self_distillation_temperature   1.0
+        densenet_growth_rate    12
+        densenet_bc_mode        False
+        densenet_compression    0.5
+        wideresnet_widen_factor 4
+        rnn_n_hidden    200
+        rnn_n_layers    2
+        rnn_bptt_len    35
+        rnn_clip        0.25
+        rnn_use_pretrained_emb  True
+        rnn_tie_weights True
+        rnn_weight_norm False
+        transformer_n_layers    6
+        transformer_n_head      8
+        transformer_dim_model   512
+        transformer_dim_inner_hidden    2048
+        transformer_n_warmup_steps      4000
+        same_seed_process       False
+        manual_seed     7000
+        evaluate        False
+        summary_freq    256
+        timestamp       1608700991
+        track_time      True
+        track_detailed_time     False
+        display_tracked_time    True
+        resume  None
+        checkpoint      ./data/checkpoint
+        checkpoint_index        None
+        save_all_models False
+        save_some_models        None
+        python_path     /home/user/anaconda3/envs/demo2/bin/python
+        world   None
+        world_conf      0,0,1,1,100
+        on_cuda True
+        hostfile        hostfile
+        mpi_path        /home/user/.openmpi
+        mpi_env None
+        experiment      demo
+        job_id  /tmp/jobrun_logs
+        script_path     exp/
+        script_class_name       None
+        num_jobs_per_node       1
+        graph   <pcode.utils.topology.PhysicalLayout object at 0x7fd9980f77b8>
+        random_state    RandomState(MT19937)
+        arch_info       {'master': 'resnet8', 'worker': ['resnet8']}
+        _fl_aggregate   scheme=federated_average
+        fl_aggregate_scheme     federated_average
+        checkpoint_root ./data/checkpoint/cifar10/resnet8/demo/1608700991_l2-0.0_lr-0.1_n_comm_rounds-100_local_n_epochs-40.0_batchsize-64_n_clients_20_n_participated-2_optim-sgd_agg_scheme-federated_average
+        checkpoint_dir  ./data/checkpoint/cifar10/resnet8/demo/1608700991_l2-0.0_lr-0.1_n_comm_rounds-100_local_n_epochs-40.0_batchsize-64_n_clients_20_n_participated-2_optim-sgd_agg_scheme-federated_average/0
+        logger  <pcode.utils.logging.Logger object at 0x7fd9980f78d0>
+
+
+experiment platform: on ubuntu18 GPU-0
+        n_participated: 2
+        world: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        rank: 0
+        devices: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        on_cuda: True
+
+
+
+2020-12-23 05:23:12             => Master created model 'resnet8. Total params: 0.078042M
+2020-12-23 05:23:12     The client will use archs={'resnet8'}.
+2020-12-23 05:23:12     Master created model templates for client models.
+2020-12-23 05:23:12             => Master created model 'resnet8. Total params: 0.078042M
+2020-12-23 05:23:12     Master initialize the clientid2arch mapping relations: {1: 'resnet8', 2: 'resnet8', 3: 'resnet8', 4: 'resnet8', 5: 'resnet8', 6: 'resnet8', 7: 'resnet8', 8: 'resnet8', 9: 'resnet8', 10: 'resnet8', 11: 'resnet8', 12: 'resnet8', 13: 'resnet8', 14: 'resnet8', 15: 'resnet8', 16: 'resnet8', 17: 'resnet8', 18: 'resnet8', 19: 'resnet8', 20: 'resnet8'}.
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+2020-12-23 05:23:14     the histogram of the targets in the partitions: dict_items([(0, [(0, 4507), (1, 4512), (2, 4521), (3, 4481), (4, 4525), (5, 4471), (6, 4512), (7, 4515), (8, 4468), (9, 4488)]), (1, []), (2, [(0, 493), (1, 488), (2, 479), (3, 519), (4, 475), (5, 529), (6, 488), (7, 485), (8, 532), (9, 512)])])
+2020-12-23 05:23:14     Data stat for original dataset: we have 45000 samples for train, 5000 samples for val, 10000 samples for test.
+2020-12-23 05:23:14     Data stat for original dataset: we have 45000 samples for train, 5000 samples for val, 10000 samples for test.
+2020-12-23 05:23:14     Data stat for original dataset: we have 45000 samples for train, 5000 samples for val, 10000 samples for test.
+2020-12-23 05:23:15     Data partition for train (client_id=1): partitioned data and use subdata.
+2020-12-23 05:23:15             Data stat for train: # of samples=2250 for client_id=1. # of batches=36. The batch size=64
+2020-12-23 05:23:15     Worker-2 initialized the local training data with Master.
+2020-12-23 05:23:15     Worker-2 initialized dataset/criterion.
+
+2020-12-23 05:23:15     Data partition for train (client_id=1): partitioned data and use subdata.
+2020-12-23 05:23:15             Data stat for train: # of samples=2250 for client_id=1. # of batches=36. The batch size=64
+2020-12-23 05:23:15     Worker-1 initialized the local training data with Master.
+2020-12-23 05:23:15     Worker-1 initialized dataset/criterion.
+
+2020-12-23 05:23:15     the histogram of the targets in the partitions: dict_items([(0, [(0, 274), (1, 130), (2, 500), (3, 232), (4, 152), (5, 120), (6, 280), (7, 220), (8, 183), (9, 159)]), (1, [(0, 203), (1, 137), (2, 211), (3, 251), (4, 38), (5, 72), (6, 487), (7, 712), (8, 68), (9, 71)]), (2, [(0, 142), (1, 117), (2, 10), (3, 14), (4, 374), (5, 164), (7, 25), (8, 1404)]), (3, [(5, 340), (6, 513), (7, 216), (8, 138), (9, 1043)]), (4, [(0, 75), (1, 1169), (2, 217), (3, 209), (4, 15), (5, 145), (6, 378), (9, 42)]), (5, [(0, 327), (1, 357), (2, 174), (3, 306), (4, 124), (5, 4), (6, 441), (7, 167), (8, 128), (9, 222)]), (6, [(0, 197), (1, 17), (2, 196), (3, 491), (4, 25), (5, 904), (6, 125), (7, 295)]), (7, [(0, 34), (1, 4), (2, 398), (3, 268), (4, 551), (5, 169), (6, 8), (7, 334), (8, 209), (9, 275)]), (8, [(0, 175), (3, 340), (4, 953), (5, 15), (6, 53), (7, 268), (8, 62), (9, 384)]), (9, [(0, 869), (1, 282), (2, 582), (3, 108), (4, 26), (5, 383)]), (10, [(0, 146), (1, 231), (2, 372), (3, 226), (4, 3), (5, 36), (6, 280), (7, 45), (8, 167), (9, 744)]), (11, [(0, 156), (1, 26), (2, 4), (3, 90), (4, 349), (5, 580), (6, 97), (7, 911), (9, 37)]), (12, [(0, 60), (1, 193), (2, 536), (3, 370), (4, 26), (5, 85), (6, 151), (7, 286), (8, 469), (9, 74)]), (13, [(0, 137), (1, 103), (2, 399), (3, 177), (4, 100), (5, 118), (6, 80), (7, 580), (8, 227), (9, 329)]), (14, [(0, 538), (1, 39), (2, 94), (3, 496), (4, 121), (5, 146), (6, 230), (7, 73), (8, 486), (9, 27)]), (15, [(0, 123), (1, 436), (2, 181), (3, 97), (5, 155), (6, 786), (7, 131), (8, 297), (9, 44)]), (16, [(0, 24), (1, 127), (2, 218), (3, 178), (4, 1059), (5, 644)]), (17, [(0, 485), (1, 208), (2, 22), (5, 255), (6, 409), (7, 198), (8, 476), (9, 197)]), (18, [(0, 98), (2, 12), (3, 153), (4, 609), (5, 136), (6, 194), (7, 54), (8, 154), (9, 840)]), (19, [(0, 444), (1, 936), (2, 395), (3, 475)])])
+2020-12-23 05:23:15     Data partition for train (client_id=1): partitioned data and use subdata.
+2020-12-23 05:23:15             Data stat for train: # of samples=2250 for client_id=1. # of batches=36. The batch size=64
+2020-12-23 05:23:15     Master initialized the local training data with workers.
+2020-12-23 05:23:15     Data partition for validation/test.
+2020-12-23 05:23:15             Data stat for validation/test: # of samples=5000 for Master. # of batches=79. The batch size=64
+2020-12-23 05:23:15     Master initialized val data.
+2020-12-23 05:23:15     Data partition for validation/test.
+2020-12-23 05:23:15             Data stat for validation/test: # of samples=10000 for Master. # of batches=157. The batch size=64
+2020-12-23 05:23:15     Master initialized model/dataset/criterion/metrics.
+2020-12-23 05:23:15     Master initialized the aggregator/coordinator.
+
+2020-12-23 05:23:15     Master starting one round of federated learning: (comm_round=1).
+2020-12-23 05:23:15     Master selected 2 from 20 clients: [13, 14].
+2020-12-23 05:23:15     Master activated the selected clients.
+2020-12-23 05:23:15             => Worker-2 (client-14) created model 'resnet8. Total params: 0.078042M
+2020-12-23 05:23:15             => Worker-1 (client-13) created model 'resnet8. Total params: 0.078042M
+2020-12-23 05:23:15     Master send the models to workers.
+2020-12-23 05:23:15             Master send the current model=resnet8 to process_id=1.
+2020-12-23 05:23:15             Master send the current model=resnet8 to process_id=2.
+2020-12-23 05:23:17     Worker-2 (client-14) received the model (resnet8) from Master. The model status is updated.
+2020-12-23 05:23:17     Worker-1 (client-13) received the model (resnet8) from Master. The model status is updated.
+2020-12-23 05:23:17     Master waits to receive the local models.
+2020-12-23 05:23:17     Data partition for train (client_id=13): partitioned data and use subdata.
+2020-12-23 05:23:17     Data partition for train (client_id=14): partitioned data and use subdata.
+2020-12-23 05:23:17             Data stat for train: # of samples=2250 for client_id=13. # of batches=36. The batch size=64
+2020-12-23 05:23:17             Data stat for train: # of samples=2250 for client_id=14. # of batches=36. The batch size=64
+2020-12-23 05:23:17     LR initialization (lr=0.1 for mini-batch size=64 and scaled to 0.1 for local mini-batch size=64): lr scaleup=False, lr warmup=False, learning_rate=0.1.
+2020-12-23 05:23:17     LR initialization (lr=0.1 for mini-batch size=64 and scaled to 0.1 for local mini-batch size=64): lr scaleup=False, lr warmup=False, learning_rate=0.1.
+2020-12-23 05:23:17     LR scheduler in a nutshell: first set lr=0.1, then use MultiStepLR scheduler: milestones=[41.0], decay_factor=0.1.
+2020-12-23 05:23:17     Worker-1 (client-13) enters the local training phase (current communication rounds=1).
+2020-12-23 05:23:17     LR scheduler in a nutshell: first set lr=0.1, then use MultiStepLR scheduler: milestones=[41.0], decay_factor=0.1.
+2020-12-23 05:23:17     Worker-2 (client-14) enters the local training phase (current communication rounds=1).
+/home/user/anaconda3/envs/demo2/lib/python3.6/site-packages/torch/cuda/__init__.py:125: UserWarning:
+TITAN RTX with CUDA capability sm_75 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_35 sm_37 sm_52 sm_60 sm_61 sm_70 compute_70.
+If you want to use the TITAN RTX GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+
+  warnings.warn(incompatible_device_warn.format(device_name, capability, " ".join(arch_list), device_name))
+/home/user/anaconda3/envs/demo2/lib/python3.6/site-packages/torch/cuda/__init__.py:125: UserWarning:
+TITAN RTX with CUDA capability sm_75 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_35 sm_37 sm_52 sm_60 sm_61 sm_70 compute_70.
+If you want to use the TITAN RTX GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+
+  warnings.warn(incompatible_device_warn.format(device_name, capability, " ".join(arch_list), device_name))
+runtime: {'time': '2020-12-23 05:23:17', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.027777777777777776, 'local_index': 1, 'loss': 2.514294147491455, 'top1': 4.6875, 'top5': 39.0625} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:17', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.05555555555555555, 'local_index': 2, 'loss': 2.4271743297576904, 'top1': 6.25, 'top5': 42.96875} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:17', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.027777777777777776, 'local_index': 1, 'loss': 2.3308088779449463, 'top1': 18.75, 'top5': 56.25} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.05555555555555555, 'local_index': 2, 'loss': 2.273739218711853, 'top1': 19.53125, 'top5': 62.5} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.08333333333333333, 'local_index': 3, 'loss': 2.3537561098734536, 'top1': 9.375, 'top5': 54.6875} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.08333333333333333, 'local_index': 3, 'loss': 2.2256574630737305, 'top1': 22.395833333333332, 'top5': 67.1875} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.1111111111111111, 'local_index': 4, 'loss': 2.322451174259186, 'top1': 8.984375, 'top5': 58.59375} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.1111111111111111, 'local_index': 4, 'loss': 2.2187845706939697, 'top1': 21.484375, 'top5': 66.796875} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.1388888888888889, 'local_index': 5, 'loss': 2.281140899658203, 'top1': 12.5, 'top5': 62.8125} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.1388888888888889, 'local_index': 5, 'loss': 2.1805628299713136, 'top1': 22.1875, 'top5': 70.0} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.16666666666666666, 'local_index': 6, 'loss': 2.2557708024978638, 'top1': 14.322916666666666, 'top5': 65.10416666666667} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.16666666666666666, 'local_index': 6, 'loss': 2.152739405632019, 'top1': 23.697916666666668, 'top5': 72.39583333333333} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.19444444444444445, 'local_index': 7, 'loss': 2.224021775381906, 'top1': 16.071428571428573, 'top5': 67.1875} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.19444444444444445, 'local_index': 7, 'loss': 2.136512415749686, 'top1': 25.223214285714285, 'top5': 74.10714285714286} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.2222222222222222, 'local_index': 8, 'loss': 2.2088898718357086, 'top1': 17.7734375, 'top5': 68.1640625} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.2222222222222222, 'local_index': 8, 'loss': 2.122782200574875, 'top1': 25.5859375, 'top5': 75.1953125} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.25, 'local_index': 9, 'loss': 2.1080864667892456, 'top1': 26.5625, 'top5': 75.86805555555556} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.25, 'local_index': 9, 'loss': 2.1941392686631946, 'top1': 19.09722222222222, 'top5': 68.92361111111111} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.2777777777777778, 'local_index': 10, 'loss': 2.08762503862381, 'top1': 27.03125, 'top5': 76.71875} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.2777777777777778, 'local_index': 10, 'loss': 2.168943500518799, 'top1': 20.78125, 'top5': 69.84375} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.3055555555555556, 'local_index': 11, 'loss': 2.081516298380765, 'top1': 27.414772727272727, 'top5': 77.13068181818181} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.3055555555555556, 'local_index': 11, 'loss': 2.155806368047541, 'top1': 21.022727272727273, 'top5': 70.73863636363636} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.3333333333333333, 'local_index': 12, 'loss': 2.07349502046903, 'top1': 28.125, 'top5': 77.21354166666667} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.3333333333333333, 'local_index': 12, 'loss': 2.1417879263559976, 'top1': 21.875, 'top5': 71.875} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.3611111111111111, 'local_index': 13, 'loss': 2.059348702430725, 'top1': 28.365384615384617, 'top5': 78.36538461538461} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.3611111111111111, 'local_index': 13, 'loss': 2.138410421518179, 'top1': 22.115384615384617, 'top5': 71.875} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.3888888888888889, 'local_index': 14, 'loss': 2.0568786433764865, 'top1': 28.236607142857142, 'top5': 78.57142857142857} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.3888888888888889, 'local_index': 14, 'loss': 2.1243586795670644, 'top1': 22.991071428571427, 'top5': 73.10267857142857} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.4166666666666667, 'local_index': 15, 'loss': 2.0466939051946005, 'top1': 28.229166666666668, 'top5': 79.0625} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.4166666666666667, 'local_index': 15, 'loss': 2.1268144528071087, 'top1': 22.604166666666668, 'top5': 72.91666666666667} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.4444444444444444, 'local_index': 16, 'loss': 2.033853694796562, 'top1': 28.80859375, 'top5': 79.6875} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.4444444444444444, 'local_index': 16, 'loss': 2.1220165118575096, 'top1': 22.75390625, 'top5': 73.53515625} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:18', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.4722222222222222, 'local_index': 17, 'loss': 2.0296205352334415, 'top1': 28.49264705882353, 'top5': 79.87132352941177} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:19', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.4722222222222222, 'local_index': 17, 'loss': 2.119876503944397, 'top1': 23.16176470588235, 'top5': 73.71323529411765} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:19', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.5, 'local_index': 18, 'loss': 2.0234333409203424, 'top1': 28.73263888888889, 'top5': 80.38194444444444} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:19', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.5, 'local_index': 18, 'loss': 2.115646633836958, 'top1': 23.524305555555557, 'top5': 73.69791666666667} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:19', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.5277777777777778, 'local_index': 19, 'loss': 2.0152187472895573, 'top1': 29.19407894736842, 'top5': 80.67434210526316} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:19', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.5277777777777778, 'local_index': 19, 'loss': 2.1100288880498788, 'top1': 24.095394736842106, 'top5': 74.01315789473684} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:19', 'worker_id': 1, 'client_id': 13, 'comm_round': 1, 'epoch': 0.5555555555555556, 'local_index': 20, 'loss': 2.008702152967453, 'top1': 29.609375, 'top5': 80.546875} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:19', 'worker_id': 2, 'client_id': 14, 'comm_round': 1, 'epoch': 0.5555555555555556, 'local_index': 20, 'loss': 2.1001758337020875, 'top1': 24.453125, 'top5': 74.53125} ({'split': 'train'})
+runtime: {'time': '2020-12-23 05:23:19', 'worker_id': 1, 'client
